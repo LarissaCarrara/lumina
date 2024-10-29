@@ -74,7 +74,7 @@ export default function SignUp() {
 
         <Text style={styles.linkSignUp}>
           Já tem uma conta?{" "}
-          <Link href="/signin" style={styles.link}>
+          <Link href="/" style={styles.link}>
             Login
           </Link>
         </Text>
