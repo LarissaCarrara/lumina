@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View, GestureResponderEvent, Alert } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  GestureResponderEvent,
+  Alert,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 const SOS: React.FC = () => {
@@ -28,18 +35,37 @@ const SOS: React.FC = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#FFAD59', '#FF7E7B']}
-        style={styles.gradient}
+        colors={["#e2e5ec", "#fff"]}
         start={{ x: 0.5, y: 0.5 }}
         end={{ x: 1, y: 1 }}
+        style={{
+          width: 270,
+          height: 270,
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 1000,
+          // cor de fundo
+          // shadowColor: "#000",
+          // shadowOffset: { width: 0, height: 8 },
+          // shadowOpacity: 0.44,
+          // shadowRadius: 10.32,
+          // elevation: 14,
+        }}
       >
-        <Pressable
-          style={styles.sosBtn}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
+        <LinearGradient
+          colors={["#FFAD59", "#FF7E7B"]}
+          style={styles.gradient}
+          start={{ x: 0.5, y: 0.5 }}
+          end={{ x: 1, y: 1 }}
         >
-          <Text style={styles.sosText}>SOS</Text>
-        </Pressable>
+          <Pressable
+            style={styles.sosBtn}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+          >
+            <Text style={styles.sosText}>SOS</Text>
+          </Pressable>
+        </LinearGradient>
       </LinearGradient>
     </View>
   );
@@ -47,12 +73,13 @@ const SOS: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 260,
+    height: 320,
     width: "100%",
+    marginVertical: 20,
     backgroundColor: "#F5F5FA",
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
   },
   gradient: {
@@ -76,10 +103,11 @@ const styles = StyleSheet.create({
   },
   sosText: {
     color: "#fff",
-    fontFamily: 'InterBold',
+    fontFamily: "InterBold",
     fontSize: 38,
-    userSelect: 'none' as const, // Impede a seleção do texto
+    userSelect: "none" as const, // Impede a seleção do texto
   },
+  btnContainer: {},
 });
 
 export default SOS;
