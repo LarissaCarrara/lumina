@@ -3,6 +3,8 @@ from pydantic import BaseModel
 import asyncpg
 import bcrypt
 import jwt
+import os
+from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
 app = FastAPI()
@@ -12,11 +14,11 @@ class LoginData(BaseModel):
     email: str
     password: str
 
-DATABASE_URL = "postgresql://lumina_pch7_user:FUGiylAg9fh3B2J7ajHCgMxeH2Ox5aLH@dpg-csl9t50gph6c73fk7d40-a.oregon-postgres.render.com/lumina_pch7?schema=public"
+data_url = os.getenv("DATABASE_URL")
 
 # Função para conectar ao banco e buscar o usuário
 async def get_user(email: str):
-    conn = await asyncpg.connect(DATABASE_URL)
+    conn = await asyncpg.connect(data_url)
     user = await conn.fetchrow('SELECT * FROM users WHERE email = $1', email)
     await conn.close()
     return user
