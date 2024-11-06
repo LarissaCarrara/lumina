@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text } from 'react-native'
 
-function Explore() {
+function Perfil() {
   return (
-    <Text>Explore</Text>
+    <Text>Perfil</Text>
   )
 }
 
-export default Explore
+export default Perfil
