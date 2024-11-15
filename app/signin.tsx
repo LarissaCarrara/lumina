@@ -10,16 +10,17 @@ export default function index() {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    try {
-        const response = await axios.post('http://localhost:8000/login', {
-            email,
-            password
-        });
-        const { access_token } = response.data;
-        Alert.alert("Login realizado com sucesso", `Token: ${access_token}`);
-    } catch (error) {
-        Alert.alert("Erro", "Credenciais inválidas");
-    }
+    console.log("signin")
+    // try {
+    //     const response = await axios.post('http://localhost:8000/login', {
+    //         email,
+    //         password
+    //     });
+    //     const { access_token } = response.data;
+    //     Alert.alert("Login realizado com sucesso", `Token: ${access_token}`);
+    // } catch (error) {
+    //     Alert.alert("Erro", "Credenciais inválidas");
+    // }
 };
 
   return (

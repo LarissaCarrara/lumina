@@ -9,14 +9,15 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
 
   const handleForgotPassword = async () => {
-    try {
-      const response = await axios.post('http://localhost:8000/forgot-password', {
-        email,
-      });
-      Alert.alert("Sucesso", "Instruções para redefinir a senha foram enviadas para o seu e-mail.");
-    } catch (error) {
-      Alert.alert("Erro", "Não foi possível enviar as instruções.");
-    }
+    console.log("forgotpassword")
+    // try {
+    //   const response = await axios.post('http://localhost:8000/forgot-password', {
+    //     email,
+    //   });
+    //   Alert.alert("Sucesso", "Instruções para redefinir a senha foram enviadas para o seu e-mail.");
+    // } catch (error) {
+    //   Alert.alert("Erro", "Não foi possível enviar as instruções.");
+    // }
   };
 
   return (
