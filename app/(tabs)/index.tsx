@@ -41,7 +41,7 @@ function Home() {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#ffffff", flex: 1, position: "relative" },
+  container: { backgroundColor: "#ffffff", flex: 1, position: "relative", height: '100%' },
 });
 
 export default Home;

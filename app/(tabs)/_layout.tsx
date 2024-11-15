@@ -22,10 +22,14 @@ export default function TabLayout() {
         tabBarStyle: {
           height: 84,
           position: "absolute",
-          marginHorizontal: 12,
+          marginBottom: 12,
           marginVertical: 12,
+          bottom: 0,
           backgroundColor: "#F5F5FA",
-          paddingHorizontal: 10,
+          // paddingHorizontal: 10,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
           borderWidth: 0,
           borderRadius: 20,
           elevation: 0,
@@ -107,17 +111,18 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
     gap: 8,
   },
   icons: {
-    resizeMode: "contain",
     width: 24,
     height: 24,
   },
   iconText: {
     fontFamily: "InterSemiBold",
     fontSize: 10,
+    width: "100%",
+    height: '100%',
   },
 });

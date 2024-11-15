@@ -1,27 +1,33 @@
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import SubmitButton from "./components/SubmitButton";
 import Fields from "./components/Fields";
-import axios from 'axios'; 
+import { Login } from "@/services/userServices";
+import { useRouter } from "expo-router";
 
 export default function index() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = async () => {
-    console.log("signin")
-    // try {
-    //     const response = await axios.post('http://localhost:8000/login', {
-    //         email,
-    //         password
-    //     });
-    //     const { access_token } = response.data;
-    //     Alert.alert("Login realizado com sucesso", `Token: ${access_token}`);
-    // } catch (error) {
-    //     Alert.alert("Erro", "Credenciais inválidas");
-    // }
-};
+    try {
+      const response = await Login(email, password);
+      router.push("/(tabs)");
+      // Salvando o token no localStorage
+      localStorage.setItem("token", response.token);
+    } catch (error) {
+      alert("Credenciais inválidas :(");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   imageHeader: {
     height: 250,
@@ -104,7 +110,7 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 2,
-    paddingLeft:20,
+    paddingLeft: 20,
     paddingRight: 20,
   },
   forgotPass: {
