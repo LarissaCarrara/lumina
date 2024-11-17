@@ -36,8 +36,8 @@ function Home() {
         </View>
               
         <SOS />
-        <Link href="/signin">Signin</Link>
-        <Link href="/signup">Signup</Link>
+        {/* <Link href="/signin">Signin</Link>
+        <Link href="/signup">Signup</Link> */}
       </View>
     </View>
   );

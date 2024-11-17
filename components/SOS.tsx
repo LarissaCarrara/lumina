@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -8,42 +8,34 @@ import {
   Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { io } from "socket.io-client";
+import socket from "@/services/socket";
 
-const socket = io("http://localhost:8000", {
-  transports: ["websocket"],
-  reconnection: true,
-});
 
 const SOS: React.FC = () => {
   const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
-  const [queueStatus, setQueueStatus] = useState<{
-    position: number;
-    queueLength: number;
-  } | null>(null);
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Conectado ao servidor Socket.io');
+    });
+
+    // Limpar conexões ao desmontar o componente
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   // Função para ser chamada após 3 segundos de pressão
   const handleLongPressAction = () => {
-    console.log("Botão pressionado por 3 segundos!");
-    try {
-      // Emitir evento 'joinQueue'
-      socket.emit("joinQueue", { userId: "user123" });
-      console.log("Evento 'joinQueue' enviado para o servidor");
-
-      Alert.alert("Você entrou na fila para ser atendido!");
-    } catch (error) {
-      console.error("Erro ao entrar na fila:", error);
-      Alert.alert("Erro", "Não foi possível entrar na fila.");
-    }
+    socket.emit('queue', { message: 'Você entrou na fila' });
+    Alert.alert("SOS Enviado", "Sua solicitação foi enviada ao servidor.");
   };
 
-  // Inicia o cronômetro ao pressionar
   const handlePressIn = (event: GestureResponderEvent) => {
     const timer = setTimeout(handleLongPressAction, 3000); // 3 segundos
     setPressTimer(timer);
   };
 
-  // Cancela o cronômetro ao soltar o botão
   const handlePressOut = (event: GestureResponderEvent) => {
     if (pressTimer) {
       clearTimeout(pressTimer);
