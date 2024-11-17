@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
+    fontFamily: 'InterMedium',
     color: "#fff",
-    fontWeight: 500,
   },
 });

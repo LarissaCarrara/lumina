@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import { Link } from "expo-router";
-import Fields from "./components/Fields";
-import SubmitButton from "./components/SubmitButton";
-import axios from 'axios'; 
+import Fields from "../components/Fields";
+import SubmitButton from "../components/SubmitButton";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -42,7 +41,7 @@ export default function ForgotPassword() {
 
         <Text style={styles.linkSignIn}>
           Já tem uma conta?{" "}
-          <Link href="/" style={styles.link}>
+          <Link href="/(tabs)" style={styles.link}>
             Login
           </Link>
         </Text>

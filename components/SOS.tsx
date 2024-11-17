@@ -8,14 +8,33 @@ import {
   Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8000", {
+  transports: ["websocket"],
+  reconnection: true,
+});
 
 const SOS: React.FC = () => {
   const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
+  const [queueStatus, setQueueStatus] = useState<{
+    position: number;
+    queueLength: number;
+  } | null>(null);
 
   // Função para ser chamada após 3 segundos de pressão
   const handleLongPressAction = () => {
     console.log("Botão pressionado por 3 segundos!");
-    Alert.alert("Alerta SOS", "Botão pressionado por 3 segundos!");
+    try {
+      // Emitir evento 'joinQueue'
+      socket.emit("joinQueue", { userId: "user123" });
+      console.log("Evento 'joinQueue' enviado para o servidor");
+
+      Alert.alert("Você entrou na fila para ser atendido!");
+    } catch (error) {
+      console.error("Erro ao entrar na fila:", error);
+      Alert.alert("Erro", "Não foi possível entrar na fila.");
+    }
   };
 
   // Inicia o cronômetro ao pressionar
@@ -44,16 +63,10 @@ const SOS: React.FC = () => {
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 1000,
-          // cor de fundo
-          // shadowColor: "#000",
-          // shadowOffset: { width: 0, height: 8 },
-          // shadowOpacity: 0.44,
-          // shadowRadius: 10.32,
-          // elevation: 14,
         }}
       >
         <LinearGradient
-          colors={["#FFAD59", "#FF7E7B"]}
+          colors={["#F0A457", "#FF6969"]}
           style={styles.gradient}
           start={{ x: 0.5, y: 0.5 }}
           end={{ x: 1, y: 1 }}
@@ -105,7 +118,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "InterBold",
     fontSize: 38,
-    userSelect: "none" as const, // Impede a seleção do texto
+    userSelect: "none" as const,
   },
   btnContainer: {},
 });

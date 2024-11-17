@@ -6,10 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Alert,
+  ScrollView,
 } from "react-native";
-import SubmitButton from "./components/SubmitButton";
-import Fields from "./components/Fields";
+import SubmitButton from "@/components/SubmitButton";
+import Fields from "@/components/Fields";
 import { Login } from "@/services/userServices";
 import { useRouter } from "expo-router";
 
@@ -30,13 +30,14 @@ export default function index() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           style={styles.imageHeader}
           source={require("../assets/images/header.png")}
         />
       </View>
+
       <View style={styles.form}>
         <Text style={styles.title}>Login</Text>
 
@@ -77,21 +78,19 @@ export default function index() {
           </Link>
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
+    flexDirection: 'column',
     backgroundColor: "#fff",
   },
   header: {
-    flex: 1,
     width: "100%",
-    height: "100%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -103,13 +102,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: 'InterBold',
     marginBottom: 16,
     textAlign: "left",
     color: "#3C3D37",
   },
   form: {
-    flex: 2,
+    // height: '70%',
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -128,13 +127,15 @@ const styles = StyleSheet.create({
   },
   googleBtn: {
     backgroundColor: "#EDF3FF",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     padding: 16,
     borderRadius: 10,
-    alignItems: "center",
   },
   googleTxt: {
     color: "#515357",
-    fontWeight: 500,
+    fontFamily: "InterMedium",
   },
   googleLogo: {
     width: 20,

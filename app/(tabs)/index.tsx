@@ -1,7 +1,8 @@
 import { View, Image, Text, StyleSheet } from "react-native";
-import HomeHeader from "../components/HomeHeader";
+import HomeHeader from "@/components/HomeHeader";
 import { StatusBar } from "expo-status-bar";
-import SOS from "../components/SOS";
+import SOS from "@/components/SOS";
+import { Link } from "expo-router";
 
 function Home() {
   return (
@@ -33,8 +34,10 @@ function Home() {
           </View>
           <Image source={require("@/assets/images/sos-image.png")} />
         </View>
-
+              
         <SOS />
+        <Link href="/signin">Signin</Link>
+        <Link href="/signup">Signup</Link>
       </View>
     </View>
   );

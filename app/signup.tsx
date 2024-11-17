@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from "react-native";
 import { Link } from "expo-router";
-import Fields from "./components/Fields";
-import SubmitButton from "./components/SubmitButton";
+import Fields from "../components/Fields";
+import SubmitButton from "../components/SubmitButton";
 import { Register } from "@/services/userServices";
 
 export default function SignUp() {
@@ -14,12 +14,12 @@ export default function SignUp() {
   const handleSignup = async () => {
     // Validações simples
     if (!name || !email || !password || !confirmPassword) {
-      alert("Please fill all fields");
+      alert("Por favor, preencha todos os campos");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("senhas não coincidem");
       return;
     }
     try {
@@ -28,11 +28,10 @@ export default function SignUp() {
     } catch {
 
     }
-
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           style={styles.imageHeader}
@@ -72,8 +71,8 @@ export default function SignUp() {
 
         <Text style={styles.terms}>
           Cadastrando, você estará de acordo com nossos{" "}
-          <b style={styles.termsLink}>Termos & Condições</b> e{" "}
-          <b style={styles.termsLink}>Política de Privacidade</b>
+          <Text style={styles.termsLink}>Termos & Condições</Text> e{" "}
+          <Text style={styles.termsLink}>Política de Privacidade</Text>
         </Text>
 
         <SubmitButton name="Cadastrar" onPress={handleSignup} />
@@ -85,7 +84,7 @@ export default function SignUp() {
           </Link>
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -93,13 +92,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
     backgroundColor: "#fff",
   },
   header: {
-    flex: 1,
     width: "100%",
-    height: "100%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -111,7 +108,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: 'InterBold',
     marginBottom: 16,
     textAlign: "left",
     color: "#3C3D37",

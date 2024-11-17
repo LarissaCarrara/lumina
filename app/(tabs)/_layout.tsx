@@ -1,7 +1,5 @@
 import { Tabs } from "expo-router";
 
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { View, Text, Image, StyleSheet } from "react-native";
 
@@ -26,7 +24,6 @@ export default function TabLayout() {
           marginVertical: 12,
           bottom: 0,
           backgroundColor: "#F5F5FA",
-          // paddingHorizontal: 10,
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
@@ -50,7 +47,7 @@ export default function TabLayout() {
               <Text
                 style={[
                   styles.iconText,
-                  { color: focused ? "#FF8852" : "#313A51" },
+                  { color: focused ? "#FF6969" : "#313A51" },
                 ]}
               >
                 Home
@@ -73,7 +70,7 @@ export default function TabLayout() {
               <Text
                 style={[
                   styles.iconText,
-                  { color: focused ? "#FF8852" : "#313A51" },
+                  { color: focused ? "#FF6969" : "#313A51" },
                 ]}
               >
                 Explore
@@ -95,7 +92,7 @@ export default function TabLayout() {
               <Text
                 style={[
                   styles.iconText,
-                  { color: focused ? "#FF8852" : "#313A51" },
+                  { color: focused ? "#FF6969" : "#313A51" },
                 ]}
               >
                 Perfil
