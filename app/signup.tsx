@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from "react-native";
 import { Link } from "expo-router";
-import Fields from "./components/Fields";
-import SubmitButton from "./components/SubmitButton";
+import Fields from "../components/Fields";
+import SubmitButton from "../components/SubmitButton";
+import { Register } from "@/services/userServices";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -10,24 +11,27 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     // Validações simples
     if (!name || !email || !password || !confirmPassword) {
-      alert("Please fill all fields");
+      alert("Por favor, preencha todos os campos");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("senhas não coincidem");
       return;
     }
+    try {
+      const response = await Register(email, password, name);
+      console.log("Usuário criado com sucesso:", response);
+    } catch {
 
-    // Função de cadastro (pode ser alterada para lógica do backend)
-    alert(`Name: ${name}, Email: ${email}, Password: ${password}`);
+    }
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
           style={styles.imageHeader}
@@ -67,19 +71,20 @@ export default function SignUp() {
 
         <Text style={styles.terms}>
           Cadastrando, você estará de acordo com nossos{" "}
-          <b style={styles.termsLink}>Termos & Condições</b> e <b  style={styles.termsLink}>Política de Privacidade</b>
+          <Text style={styles.termsLink}>Termos & Condições</Text> e{" "}
+          <Text style={styles.termsLink}>Política de Privacidade</Text>
         </Text>
 
         <SubmitButton name="Cadastrar" onPress={handleSignup} />
 
         <Text style={styles.linkSignUp}>
           Já tem uma conta?{" "}
-          <Link href="/" style={styles.link}>
+          <Link href="/signin" style={styles.link}>
             Login
           </Link>
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -87,13 +92,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
     backgroundColor: "#fff",
   },
   header: {
-    flex: 1,
     width: "100%",
-    height: "100%",
+    height: "40%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
+    fontFamily: 'InterBold',
     marginBottom: 16,
     textAlign: "left",
     color: "#3C3D37",
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   termsLink: {
-    color: "#FF6969"
+    color: "#FF6969",
   },
   linkSignUp: {
     paddingTop: 20,
