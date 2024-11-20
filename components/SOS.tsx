@@ -9,10 +9,12 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import socket from "@/services/socket";
+import CallCard from '../app/(tabs)/CallCard'
 
 
 const SOS: React.FC = () => {
   const [pressTimer, setPressTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isCalling, setIsCalling] = useState(false);
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -29,6 +31,8 @@ const SOS: React.FC = () => {
   const handleLongPressAction = () => {
     socket.emit('queue', { message: 'Você entrou na fila' });
     Alert.alert("SOS Enviado", "Sua solicitação foi enviada ao servidor.");
+    console.log("SOS Enviado", "Sua solicitação foi enviada ao servidor.");
+    setIsCalling(true)
   };
 
   const handlePressIn = (event: GestureResponderEvent) => {
@@ -72,6 +76,8 @@ const SOS: React.FC = () => {
           </Pressable>
         </LinearGradient>
       </LinearGradient>
+
+      {isCalling && <CallCard />}
     </View>
   );
 };

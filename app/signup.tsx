@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from "react-native"; // Importando Picker
+import { Picker } from '@react-native-picker/picker';
 import { Link } from "expo-router";
 import Fields from "../components/Fields";
 import SubmitButton from "../components/SubmitButton";
@@ -10,10 +11,10 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [userType, setUserType] = useState<string>(""); 
   const handleSignup = async () => {
     // Validações simples
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !password || !confirmPassword || !userType) {  // **Alteração: verificando se o tipo de usuário está preenchido**
       alert("Por favor, preencha todos os campos");
       return;
     }
@@ -23,10 +24,10 @@ export default function SignUp() {
       return;
     }
     try {
-      const response = await Register(email, password, name);
+      const response = await Register(email, password, name, userType);  // **Alteração: passando tipo de usuário para o serviço**
       console.log("Usuário criado com sucesso:", response);
     } catch {
-
+      // Tratamento de erro
     }
   };
 
@@ -38,7 +39,7 @@ export default function SignUp() {
           source={require("../assets/images/headerSignUp.png")}
         />
       </View>
-      {/* form */}
+      {/* Formulário */}
       <View style={styles.form}>
         <Text style={styles.title}>SignUp</Text>
         <Fields
@@ -68,6 +69,19 @@ export default function SignUp() {
           onChanged={setConfirmPassword}
           secure={true}
         />
+
+        {/* Novo campo: Tipo de Usuário */}
+        <View style={styles.pickerContainer}>
+          <Text style={styles.label}>Tipo de Usuário</Text>
+          <Picker
+            selectedValue={userType}
+            onValueChange={(itemValue: string) => setUserType(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Usuário" value="usuario" />
+            <Picker.Item label="Profissional" value="profissional" />
+          </Picker>
+        </View>
 
         <Text style={styles.terms}>
           Cadastrando, você estará de acordo com nossos{" "}
@@ -108,7 +122,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontFamily: 'InterBold',
+    fontFamily: "InterBold",
     marginBottom: 16,
     textAlign: "left",
     color: "#3C3D37",
@@ -131,5 +145,21 @@ const styles = StyleSheet.create({
   link: {
     color: "#FF6969",
     fontWeight: "bold",
+  },
+  pickerContainer: {
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    fontFamily: "InterBold",
+    color: "#3C3D37",
+  },
+  picker: {
+    height: 40,
+    width: "100%",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 5,
+    paddingLeft: 10,
   },
 });

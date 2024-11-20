@@ -32,10 +32,11 @@ export const Register = async (
   email: string,
   password: string,
   name: string,
+  userType: string,
 
 ): Promise<Register> => {
   try {
-    const response = await api.post<Register>("/auth/register", { email, password, name });
+    const response = await api.post<Register>("/auth/register", { email, password, name, userType });
     return response.data;
   } catch (error: any) {
     console.error(
